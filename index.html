@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  </style>
+</head>
+<body>
+
+  <!-- Sign-up form start -->
+<div class="main-container" id="main-subs">
+  <div class="left-side">
+    <h1>Stay updated!</h1>
+
+    <p>Join 60,000+ product managers receiving monthly updates on:</p>
+    <ul>
+      <li>
+    <img src="./assets/images/icon-list.svg" class="check-logo">
+    <p>Product discovery and building what matters</p>
+    </li>
+    <li>
+    <img src="./assets/images/icon-list.svg" class="check-logo">
+    <p>Measuring to ensure updates are a success </p> 
+  </li>
+  <li>
+    <img src="./assets/images/icon-list.svg" class="check-logo">
+    <p>And much more!</p>
+  </li>
+  </ul>
+  <form>
+
+  </form>
+  <label class="label">Email address</label>
+  <span class="err-mesage" id="err-mesage">Valid email required</span>
+  <input class="email-input" id="email-input" type="email" name="email" placeholder="
+    email@company.com">
+  <input class="button" type="submit" id="button" value="Subscribe to monthly newsletter">
+  </div>
+  <div class="right-side">
+    <img src="./assets/images/illustration-sign-up-desktop.svg">
+  </div>
+</div>
+
+  <!-- Sign-up form end -->
+
+  <!-- Success message start -->
+<div class="sucsess-container" id="suc-cont">
+  <img src="./assets/images/icon-success.svg" id="suc-img">
+  <h1>Thanks for subscribing!</h1>
+
+  <p>A confirmation email has been sent to <span class="entered-email" id="entered-email">ash@loremcompany.com</span>. 
+  Please open it and click the button inside to confirm your subscription.</p>
+
+  <button class="button">
+  Dismiss message
+  </button>
+</div>
+
+  <!-- Success message end -->
+  
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Rankov Marian</a>.
+  </div>
+</body>
+<script>
+  const button = document.querySelector("#button");
+  const inputEmail = document.querySelector("#email-input")
+
+  const validateEmail = (email) => {
+  return email.match(
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+};
+
+const validate = () => {
+  const $result = $('#result');
+  const email = $('#email').val();
+  $result.text('');
+
+  if(validateEmail(email)){
+    $result.text(email + ' is valid.');
+    $result.css('color', 'green');
+  } else{
+    $result.text(email + ' is invalid.');
+    $result.css('color', 'red');
+  }
+  return false;
+}
+
+  button.addEventListener("click", (e) => {
+    e.preventDefault();
+    let email = inputEmail.value;
+    const re = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    
+    if (re.test(email)){
+      document.getElementById("err-mesage").style.display = "none";
+      document.getElementById("main-subs").style.display="none";
+      document.getElementById("suc-cont").style.display="block";
+      const element = document.getElementById("entered-email");
+      element.innerHTML = email;
+
+    }else {
+      document.getElementById("err-mesage").style.display = "block";
+      document.getElementById("email-input").style.backgroundColor = "hsl(4, 100%, 67%, 30%)"
+      document.getElementById("email-input").style.color = "hsl(4, 100%, 67%)"
+      
+    }
+
+  });
+</script>
+</html>
